@@ -32,6 +32,15 @@ Deployment was performed on a windows OS with the listed tooling.
 - [server.properties](https://minecraft.fandom.com/wiki/Server.properties) edited to `enforce-whitelist`
 - [whitelist.json](https://minecraft.fandom.com/wiki/Whitelist.json) and `ops.json` edited
 
+## Schedule Container Group
+
+To save money the container group is started and stopped on a schedule. See the `start_trigger` and `stop_trigger` for interval and times. The logic is not complete. The Azure Container Instance start and stop action must be manually configured. Go to the portal and edit the two logic apps to complete the schedule.
+
+There is a potential path to full automation that includes downloading ARM templates and editing them. This is a road that only the desparate travel. In the end I decided to add the action manually.This is also a poor solution since your changes will be destroyed on subsequent runs of `apply`. In the coming months a managed identity option could be used with granted permissions to make an API call from the logic_app to the container group.
+
+<https://wp.sjkp.dk/schedule-start-stop-of-azure-container-instances/>
+<https://azapril.dev/2021/04/12/deploying-a-logicapp-with-terraform/>
+
 ## Cleanup
 
 To remove all azure resources run (RG name found in .env `resource_group`):

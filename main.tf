@@ -50,7 +50,7 @@ resource "azurerm_storage_account" "state_storage" {
 
 resource "azurerm_storage_share" "volume" {
   name                 = "miner-volume"
-  storage_account_name = "${azurerm_storage_account.state_storage.name}"
+  storage_account_name = azurerm_storage_account.state_storage.name
   quota                = 50
 }
 
@@ -65,8 +65,8 @@ resource "azurerm_container_group" "miner" {
   container {
     name   = "mc"
     image  = "itzg/minecraft-server"
-    cpu    = "0.5"
-    memory = "2"
+    cpu    = "2"
+    memory = "2.5"
     environment_variables = {
       "EULA" = "TRUE"
     }
@@ -77,16 +77,58 @@ resource "azurerm_container_group" "miner" {
     }
 
     volume {
-      name       = "minecraft"
-      mount_path = "/data"
-      read_only  = false
-      share_name = azurerm_storage_share.volume.name
+      name                 = "minecraft"
+      mount_path           = "/data"
+      read_only            = false
+      share_name           = azurerm_storage_share.volume.name
       storage_account_name = azurerm_storage_account.state_storage.name
       storage_account_key  = azurerm_storage_account.state_storage.primary_access_key
     }
   }
 }
 
+resource "azurerm_logic_app_workflow" "start_logic_app" {
+  name                = "start_miner_scheduler"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_logic_app_trigger_recurrence" "start_trigger" {
+  name         = "start_miner"
+  logic_app_id = azurerm_logic_app_workflow.start_logic_app.id
+  frequency    = "Day"
+  interval     = 1
+  time_zone    = "Pacific Standard Time"
+  schedule {
+      at_these_hours = [ 19 ]
+      at_these_minutes = [ 0 ]
+  }
+}
+
+resource "azurerm_logic_app_workflow" "stop_logic_app" {
+  name                = "stop_miner_scheduler"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_logic_app_trigger_recurrence" "stop_trigger" {
+  name         = "stop_miner"
+  logic_app_id = azurerm_logic_app_workflow.stop_logic_app.id
+  frequency    = "Day"
+  interval     = 1
+  time_zone    = "Pacific Standard Time"
+  schedule {
+      at_these_hours = [ 1 ]
+      at_these_minutes = [ 0 ]
+  }
+}
+
+# See README to finish container scheduling
+
 output "container_ip" {
     value = azurerm_container_group.miner.ip_address
+}
+
+output "container_fqdn" {
+    value = azurerm_container_group.miner.fqdn
 }
