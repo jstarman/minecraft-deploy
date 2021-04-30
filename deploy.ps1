@@ -19,7 +19,7 @@ if ($confirmation -eq 'n') {
     exit
 }
 
-terraform init -input=false -backend=true -reconfigure `
+terraform init -input=false -backend=true -reconfigure -upgrade `
   -backend-config="resource_group_name=$env:TF_VAR_resource_group" `
   -backend-config="storage_account_name=$env:TF_VAR_storage_account" `
   -backend-config="container_name=$env:TF_VAR_storage_container"

@@ -35,7 +35,7 @@ $key=$(az storage account keys list --account-name $env:TF_VAR_storage_account -
 Write-host "Create storage container $env:TF_VAR_storage_container"
 az storage container create --account-name $env:TF_VAR_storage_account --name $env:TF_VAR_storage_container --account-key "$key"
 
-terraform init -input=false -backend=true -reconfigure `
+terraform init -input=false -backend=true -reconfigure -upgrade `
   -backend-config="resource_group_name=$env:TF_VAR_resource_group" `
   -backend-config="storage_account_name=$env:TF_VAR_storage_account" `
   -backend-config="container_name=$env:TF_VAR_storage_container"
