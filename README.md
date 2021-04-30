@@ -43,6 +43,8 @@ There is a potential path to full automation that includes downloading ARM templ
 
 ## Cleanup
 
+Script to clean up logging to recover storage  `./samply_log_delete.ps1`
+
 To remove all azure resources run (RG name found in .env `resource_group`):
 
 `az group delete --name <resource group name> --yes`
