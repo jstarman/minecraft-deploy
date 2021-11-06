@@ -32,6 +32,10 @@ Deployment was performed on a windows OS with the listed tooling.
 - [server.properties](https://minecraft.fandom.com/wiki/Server.properties) edited to `enforce-whitelist`
 - [whitelist.json](https://minecraft.fandom.com/wiki/Whitelist.json) and `ops.json` edited
 
+## Docker Image Updates
+
+On start of the container image `itzg/minecraft-server` latest is pulled by default. To verify the [docker image](https://hub.docker.com/r/itzg/minecraft-server/tags) version look for tags `Latest`, `Linux/amd64`, and a matching digest. See also [Minecraft Server Version](https://www.minecraft.net/en-us/download/server)
+
 ## Schedule Container Group
 
 To save money the container group is started and stopped on a schedule. See the `start_trigger` and `stop_trigger` for interval and times. The logic is not complete. The Azure Container Instance start and stop action must be manually configured. Go to the portal and edit the two logic apps to complete the schedule.
