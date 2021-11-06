@@ -39,11 +39,12 @@ To save money the container group is started and stopped on a schedule. See the 
 There is a potential path to full automation that includes downloading ARM templates and editing them. This is a road that only the desparate travel. In the end I decided to add the action manually.This is also a poor solution since your changes will be destroyed on subsequent runs of `apply`. In the coming months a managed identity option could be used with granted permissions to make an API call from the logic_app to the container group.
 
 <https://wp.sjkp.dk/schedule-start-stop-of-azure-container-instances/>
+
 <https://azapril.dev/2021/04/12/deploying-a-logicapp-with-terraform/>
 
 ## Cleanup
 
-Script to clean up logging to recover storage  `./samply_log_delete.ps1`
+Script to clean up logging to recover storage  `./sample_log_delete.ps1`
 
 To remove all azure resources run (RG name found in .env `resource_group`):
 
