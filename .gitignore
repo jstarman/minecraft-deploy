@@ -31,3 +31,4 @@ override.tf.json
 .terraform.lock.hcl
 .env
 delete.ps1
+**/SetupFiles
