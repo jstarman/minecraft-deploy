@@ -100,7 +100,7 @@ resource "azurerm_logic_app_trigger_recurrence" "start_trigger" {
   interval     = 1
   time_zone    = "Pacific Standard Time"
   schedule {
-      at_these_hours = [ 19 ]
+      at_these_hours = [ 17 ]
       at_these_minutes = [ 0 ]
   }
 }
@@ -118,7 +118,7 @@ resource "azurerm_logic_app_trigger_recurrence" "stop_trigger" {
   interval     = 1
   time_zone    = "Pacific Standard Time"
   schedule {
-      at_these_hours = [ 1 ]
+      at_these_hours = [ 3 ]
       at_these_minutes = [ 0 ]
   }
 }
