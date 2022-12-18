@@ -54,7 +54,11 @@ To remove all azure resources run (RG name found in .env `resource_group`):
 
 `az group delete --name <resource group name> --yes`
 
-Restart world (reseed) - in data storage file share `miner-volume` delete folder defined in server.properties `level-name`
+### Restart world (reseed)
+
+In data storage file share `miner-volume` (In craftmining9753store -> file service) delete folder defined in server.properties `level-name`
+
+See `./sample_log_delete.ps1` for deleting.
 
 ## Other links
 
