@@ -33,7 +33,7 @@ resource "random_string" "dns_label" {
 
     length  = 8
     special = false
-    number  = true
+    numeric  = true
     upper   = false
 }
 
@@ -44,7 +44,6 @@ resource "azurerm_storage_account" "state_storage" {
   account_tier              = "Standard"
   account_kind              = "StorageV2"
   account_replication_type  = "LRS"
-  allow_blob_public_access  = false
   enable_https_traffic_only = true
 }
 
@@ -58,7 +57,7 @@ resource "azurerm_container_group" "miner" {
   name                = "minecart"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  ip_address_type     = "public"
+  ip_address_type     = "Public"
   dns_name_label      = "minecart-${random_string.dns_label.id}"
   os_type             = "Linux"
 
