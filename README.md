@@ -40,7 +40,7 @@ On start of the container image `itzg/minecraft-server` latest is pulled by defa
 
 To save money the container group is started and stopped on a schedule. See the `start_trigger` and `stop_trigger` for interval and times. The logic is not complete. The Azure Container Instance start and stop action must be manually configured. Go to the portal and edit the two logic apps to complete the schedule.
 
-There is a potential path to full automation that includes downloading ARM templates and editing them. This is a road that only the desparate travel. In the end I decided to add the action manually.This is also a poor solution since your changes will be destroyed on subsequent runs of `apply`. In the coming months a managed identity option could be used with granted permissions to make an API call from the logic_app to the container group.
+There is a potential path to full automation that includes downloading ARM templates and editing them. This is a road that only the desperate travel. In the end I decided to add the action manually.This is also a poor solution since your changes will be destroyed on subsequent runs of `apply`. In the coming months a managed identity option could be used with granted permissions to make an API call from the logic_app to the container group.
 
 <https://wp.sjkp.dk/schedule-start-stop-of-azure-container-instances/>
 
@@ -54,11 +54,11 @@ To remove all azure resources run (RG name found in .env `resource_group`):
 
 `az group delete --name <resource group name> --yes`
 
-### Restart world (reseed)
+## Restart world (reseed)
 
-In data storage file share `miner-volume` (In craftmining9753store -> file service) delete folder defined in server.properties `level-name`
+Using the powershell `./sample_log_delete.ps1` script delete the folder named in the key-value property `level-name` in the server.properties file. For example if the server properties key-value is `level-name=minecraft` edit the powershell to delete this path `--pattern minecraft`
 
-See `./sample_log_delete.ps1` for deleting.
+Once the script has completed edit the server.properties `level-seed` key value with the desired seed integer. `server.properties` can be found in Azure data storage `miner-volume` (In craftmining9753store -> file service -> browse files)
 
 ## Other links
 
