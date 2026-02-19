@@ -67,3 +67,5 @@ Once the script has completed edit the server.properties `level-seed` key value 
 <https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs>
 
 <https://github.com/itzg/docker-minecraft-server/>
+
+## alia wuz here
